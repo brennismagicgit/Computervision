@@ -91,8 +91,16 @@ function [Korrespondenzen] = punkt_korrespondenzen(I1,I2,Mpt1,Mpt2,varargin)
     toc;
     
     if(do_plot == true)
-       figure(2);
-       showMatchedFeatures(IGray1,IGray2,Korrespondenzen(1:2,:)',Korrespondenzen(3:4,:)','montage');
+        figure(1);
+        imshow([IGray1,IGray2]);
+        [r,c] = size(IGray1);
+        hold on
+        for i = 1:length(Korrespondenzen)
+            y = [Korrespondenzen(2,i),Korrespondenzen(4,i)];
+            x = [Korrespondenzen(1,i),Korrespondenzen(3,i)+c];
+            plot(x,y,'-yx','MarkerEdgeColor','r');
+        end
+        title('Matched Features');
     end
 
 end
