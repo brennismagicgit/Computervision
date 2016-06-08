@@ -7,7 +7,7 @@ function [Korrespondenzen] = punkt_korrespondenzen(I1,I2,Mpt1,Mpt2,varargin)
     P = inputParser;
 
     defaultWindowLength = 9;
-    defaultMinCorr = 0.99;
+    defaultMinCorr = 0.95;
     defaultMaxSSD = 1e3;
     defaultPlot = false;
     defaultUseSSD = false;
