@@ -7,7 +7,7 @@ function [Korrespondenzen_robust] = F_ransac(Korrespondenzen,varargin)
     % Optionale Parameter
     P.addOptional('epsilon', 0.65, @isnumeric);
     P.addOptional('p', 0.99, @isnumeric);
-    P.addOptional('tolerance',0.05, @isnumeric);
+    P.addOptional('tolerance',0.1, @isnumeric);
     % Lese den Input
     P.parse(varargin{:});
     % Extrahiere die Variablen aus dem Input-Parser
@@ -32,10 +32,10 @@ function [Korrespondenzen_robust] = F_ransac(Korrespondenzen,varargin)
     for i=1:s
         select = randperm(n,k); % Auswählen von k zufälligen Korrespondenzen
         F = achtpunktalgorithmus(Korrespondenzen(:,select));    % Berechnen von F mittels 8 Punk Algorithmus
-        
+         
         num = diag(x2_'*F*x1_).^2;
-        den = norm(eHat*F*x1_)+norm(x2_'*F*eHat);
-        SampsonD = num/den;     % Bestimmen der Sampson Distanz aller Korrespondenzen zur Transformation F 
+        den = sum((eHat*F*x1_).^2)+sum((x2_'*F*eHat)'.^2);
+        SampsonD = num'./den;     % Bestimmen der Sampson Distanz aller Korrespondenzen zur Transformation F 
         
         index = SampsonD < tolerance;           % bestimmen der zulässigen Matches
         Consensus = Korrespondenzen(:,index);   % Abspeichern des Aktuellen Consensus
