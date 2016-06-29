@@ -47,3 +47,13 @@ function [Korrespondenzen_robust] = F_ransac(Korrespondenzen,varargin)
     end
     Korrespondenzen_robust = maxConsensus;      % Ausgabe des Größten Consensus
 end
+
+
+
+
+
+
+
+
+
+
