@@ -28,8 +28,7 @@ function [T,R, lambdas, P1] = rekonstruktion(T1,T2,R1,R2, Korrespondenzen, K)
     nNeg = [sum(lambda1<=0),sum(lambda2<=0),sum(lambda3<=0),sum(lambda4<=0)];
     [nMin ,ind] = min(nNeg);
     % zwei oder mehr lambda sets haben die gleich anzahl an negative
-    % Elementen:
-    % wähle das Set, dass näher an null ist
+    % Elementen: wähle das Set, dass näher an null ist
     nMinSets = length(find(nMin == nNeg));
     if(nMinSets > 1)
         iMinSets = find(nMin == nNeg);

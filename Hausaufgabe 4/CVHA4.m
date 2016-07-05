@@ -25,14 +25,14 @@ Merkmale2 = harris_detektor(IGray2,'segment_length',9,'k',0.05,'min_dist',80,'N'
 
 %% Korrespondenzschätzung
 tic;
-Korrespondenzen = punkt_korrespondenzen(IGray1,IGray2,Merkmale1,Merkmale2,'window_length',25,'min_corr',0.9,'do_plot',false);
+Korrespondenzen = punkt_korrespondenzen(IGray1,IGray2,Merkmale1,Merkmale2,'window_length',11,'min_corr',0.9,'do_plot',false);
 zeit_korrespondenzen = toc;
 disp(['Es wurden ' num2str(size(Korrespondenzen,2)) ' Korrespondenzpunktpaare in ' num2str(zeit_korrespondenzen) 's gefunden.'])
 
 
 
 %%  Finde robuste Korrespondenzpunktpaare mit Hilfe des RANSAC-Algorithmus
-Korrespondenzen_robust = F_ransac(Korrespondenzen,'tolerance',0.015);
+Korrespondenzen_robust = F_ransac(Korrespondenzen,'tolerance',0.1,'epsilon',0.65);
 disp(['Es wurden ' num2str(size(Korrespondenzen_robust,2)) ' robuste Korrespondenzpunktpaare mittels RanSaC bestimmt.'])
 
 % Zeige die robusten Korrespondenzpunktpaare
@@ -65,6 +65,6 @@ disp(E);
 
 %% Berechnung des mittleren Rückprojektionsfehlers auf der Bildebene von Kamera 2
 repro_error = rueckprojektion(Korrespondenzen_robust, P1, IGray2, T, R, K);
-disp(['Reprojections Fehler: ' num2str(repro_error)]);
+disp(['Reprojectionsfehler: ' num2str(repro_error)]);
 
 
